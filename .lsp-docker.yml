@@ -1,0 +1,16 @@
+lsp:
+  server:
+    type: docker
+    subtype: image # Or image. container subtype means launching an existing container
+    # image subtype means creating a new container each time from a specified image
+    name: gporca_dev:latest  # customized image name
+    container-name: gporca-container
+    docker-server-id: my-clangd-docker-gporca
+    server: clangd # Server id of a registered server (by lsp-mode)
+    launch_command: "clangd-14 --compile-commands-dir=/workspace/lsp-gporca" # Launch command of the language server
+    # (selected by a server id specified above) in stdio mode
+    # Note: launch_command is not used with container subtype servers
+    # as a command is embedded in a container itself and serves as an entrypoint
+  mappings:
+    - source: "/Users/korenhe/repo/gporca"
+      destination: "/workspace/lsp-gporca"
